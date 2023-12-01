@@ -1,11 +1,15 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-
+from openai import OpenAI
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CallbackQueryHandler
+from telegram.ext import Updater, CallbackQueryHandler,MessageHandler, Filters
+import os
 
 my_map={}
 print("hello")
+client = OpenAI(api_key=os.environ.get('BOT_ID'))
+my_assistant = client.beta.assistants.retrieve("asst_veUrx3MwQpT6XccwsBKEZDzF")
+
 
 async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'Hello {update.effective_user.first_name} {update.effective_user.id}')
@@ -37,12 +41,17 @@ async def button(update:Update, context):
 
     await context.bot.send_message(chat_id=query.message.chat_id, text=response)
 
+async def handle_message(update, context):
+    text_received = update.message.text
+    # You can add custom logic here to respond based on the text received
+    await update.message.reply_text(f'You said: {text_received}')
 
 
 
-app = ApplicationBuilder().token("2019821043:AAEgjiZnRAnUWerheUfGglcAIwM6NVINcsQ").build()
 
-app.add_handler(CommandHandler("hello", hello))
+app = ApplicationBuilder().token(os.environ.get('BOT_ID')).build()
+
+app.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
 
 
 
