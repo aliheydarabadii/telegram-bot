@@ -10,13 +10,13 @@ async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'Hello {update.effective_user.first_name} {update.effective_user.id}')
 
 
-def start(update:Update, context:ContextTypes.DEFAULT_TYPE):
+async def start(update:Update, context:ContextTypes.DEFAULT_TYPE):
     keyboard = [['Option 1', 'Option 2'],
                 ['Option 3', 'Option 4']]
 
     reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
 
-    update.message.reply_text('Please choose:', reply_markup=reply_markup)
+    await update.message.reply_text('Please choose:', reply_markup=reply_markup)
 
 
 app = ApplicationBuilder().token("2019821043:AAEgjiZnRAnUWerheUfGglcAIwM6NVINcsQ").build()
