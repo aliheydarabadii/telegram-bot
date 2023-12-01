@@ -1,8 +1,9 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-from telegram import ReplyKeyboardMarkup
-from telegram.ext import Updater
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater, CallbackQueryHandler
+
 
 print("hello")
 
@@ -11,10 +12,12 @@ async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def start(update:Update, context:ContextTypes.DEFAULT_TYPE):
-    keyboard = [['فیلم'],
-                ['سریال']]
+    keyboard = [
+        [InlineKeyboardButton("فیلم", callback_data='1'),
+         InlineKeyboardButton("سریال", callback_data='2')]
+        ]
 
-    reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
+    reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text('Please choose:', reply_markup=reply_markup)
 
@@ -32,6 +35,6 @@ app.add_handler(CommandHandler("hello", hello))
 
 app.add_handler(CommandHandler('start', start))
 
-app.add_handler(CommandHandler('فیلم', movie))
+app.add_handler(CommandHandler('1', movie))
 
 app.run_polling()
