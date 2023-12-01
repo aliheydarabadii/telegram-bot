@@ -34,7 +34,7 @@ async def button(update:Update, context):
     else:
         response = f"Unknown option. {update.effective_user.id}"
 
-    query.edit_message_text(text=response)
+    await query.edit_message_text(text=response)
 
 
 app = ApplicationBuilder().token("2019821043:AAEgjiZnRAnUWerheUfGglcAIwM6NVINcsQ").build()
