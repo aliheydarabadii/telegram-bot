@@ -35,11 +35,11 @@ async def button(update:Update, context):
         my_client_ai[user_id]=client.beta.threads.create()
     # Handle the callback_data
     if query.data == '1':
-        response = f"You selected Option 1.{user_id}"
+        response = f"what do you like to see ."
     elif query.data == '2':
-        response = f"You selected Option 2.{user_id}"
+        response = f"not implemented it"
     else:
-        response = f"Unknown option. {user_id}"
+        response = f"Unknown option."
 
     await context.bot.send_message(chat_id=query.message.chat_id, text=response)
 
