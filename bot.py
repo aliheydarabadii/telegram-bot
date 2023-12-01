@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from openai import OpenAI
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CallbackQueryHandler,MessageHandler, Filters
+from telegram.ext import Updater, CallbackQueryHandler,MessageHandler, filters
 import os
 
 my_map={}
@@ -51,7 +51,7 @@ async def handle_message(update, context):
 
 app = ApplicationBuilder().token(os.environ.get('BOT_ID')).build()
 
-app.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
+app.add_handler(MessageHandler(filters.text & ~filters.command, handle_message))
 
 
 
