@@ -10,7 +10,9 @@ print("hello")
 client = OpenAI(api_key=os.environ.get('API_KEY'))
 my_assistant = client.beta.assistants.retrieve("asst_veUrx3MwQpT6XccwsBKEZDzF")
 
-
+default_message="""
+I want your help to recommend me some movies to watch. You ask me some questions and based on that you recommend movies. Each time you recommend five movies and get feedbacks on that recommendations to make better ones. Please ask questions one by one. Please do not recommend movies that you have recommended again. Please do not recommend movies that the I have seen. You keep recommending until the I like a movie to watch. After asking the questions you think is necessary to ask, please ask whether there is a movie that the user want you to recommend something like that. Please ask the questions in JSON format that has these parts: GPT_Description, Question. Please return the recommendations in JSON format that has these parts :Index, Name, Year, Discerption. Go ahead You:
+"""
 async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'Hello {update.effective_user.first_name} {update.effective_user.id}')
 
@@ -35,7 +37,7 @@ async def button(update:Update, context):
         my_client_ai[user_id]=client.beta.threads.create()
     # Handle the callback_data
     if query.data == '1':
-        response = f"what do you like to see ."
+        response = send_message(default_message,my_client_ai[user_id],client,my_assistant)
     elif query.data == '2':
         response = f"not implemented it"
     else:
