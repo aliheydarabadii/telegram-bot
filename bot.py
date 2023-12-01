@@ -7,7 +7,7 @@ import os
 
 my_map={}
 print("hello")
-client = OpenAI(api_key=os.environ.get('BOT_ID'))
+client = OpenAI(api_key=os.environ.get('API_KEY'))
 my_assistant = client.beta.assistants.retrieve("asst_veUrx3MwQpT6XccwsBKEZDzF")
 
 
