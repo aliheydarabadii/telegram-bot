@@ -10,7 +10,7 @@ async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'Hello {update.effective_user.first_name} {update.effective_user.id}')
 
 
-def start(update, context):
+def start(update:Update, context:ContextTypes.DEFAULT_TYPE):
     keyboard = [['Option 1', 'Option 2'],
                 ['Option 3', 'Option 4']]
 
