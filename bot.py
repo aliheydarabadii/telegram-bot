@@ -4,7 +4,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CallbackQueryHandler
 
-
+my_map={}
 print("hello")
 
 async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -25,8 +25,8 @@ async def start(update:Update, context:ContextTypes.DEFAULT_TYPE):
 async def button(update:Update, context):
     query = update.callback_query
     query.answer()  # This is necessary to stop the loading animation on the button
-    user_id =await update.callback_query.from_user.id  # This is necessary to prevent small loading circle on the button
-
+    user_id = query.from_user.id  # This is necessary to prevent small loading circle on the button
+    
     # Handle the callback_data
     if query.data == '1':
         response = f"You selected Option 1.{user_id}"
@@ -35,7 +35,9 @@ async def button(update:Update, context):
     else:
         response = f"Unknown option. {user_id}"
 
-    await query.edit_message_text(text=response)
+    await context.bot.send_message(chat_id=query.message.chat_id, text=response)
+
+
 
 
 app = ApplicationBuilder().token("2019821043:AAEgjiZnRAnUWerheUfGglcAIwM6NVINcsQ").build()
