@@ -24,15 +24,17 @@ async def start(update:Update, context:ContextTypes.DEFAULT_TYPE):
 
 async def button(update:Update, context):
     query = update.callback_query
-    query.answer()  # This is necessary to prevent small loading circle on the button
+    query.answer()  # This is necessary to stop the loading animation on the button
+
+    user_id = query.from_user.id  # This is necessary to prevent small loading circle on the button
 
     # Handle the callback_data
     if query.data == '1':
-        response = f"You selected Option 1.{update.message.from_user.id}"
+        response = f"You selected Option 1.{user_id}"
     elif query.data == '2':
-        response = f"You selected Option 2.{update.message.from_user.id}"
+        response = f"You selected Option 2.{user_id}"
     else:
-        response = f"Unknown option. {update.message.from_user.id}"
+        response = f"Unknown option. {user_id}"
 
     await query.edit_message_text(text=response)
 
