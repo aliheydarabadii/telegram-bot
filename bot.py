@@ -51,7 +51,7 @@ async def handle_message(update, context):
 
 app = ApplicationBuilder().token(os.environ.get('BOT_ID')).build()
 
-app.add_handler(MessageHandler(filters.text & ~filters.command, handle_message))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.Command, handle_message))
 
 
 
