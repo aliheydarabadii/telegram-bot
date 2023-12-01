@@ -4,8 +4,8 @@ from openai import OpenAI
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CallbackQueryHandler,MessageHandler, filters
 import os
-
-my_map={}
+from open_ai import send_message
+my_client_ai={}
 print("hello")
 client = OpenAI(api_key=os.environ.get('API_KEY'))
 my_assistant = client.beta.assistants.retrieve("asst_veUrx3MwQpT6XccwsBKEZDzF")
@@ -31,6 +31,8 @@ async def button(update:Update, context):
     await query.answer()  # This is necessary to stop the loading animation on the button
     user_id = query.from_user.id  # This is necessary to prevent small loading circle on the button
     
+    if user_id not in my_client_ai.values():
+        my_client_ai[user_id]=client.beta.threads.create()
     # Handle the callback_data
     if query.data == '1':
         response = f"You selected Option 1.{user_id}"
@@ -41,10 +43,13 @@ async def button(update:Update, context):
 
     await context.bot.send_message(chat_id=query.message.chat_id, text=response)
 
-async def handle_message(update, context):
+async def handle_message(update:Update, context):
     text_received = update.message.text
+    thread=my_client_ai[update.message.from_user.id]
+    message=send_message(text_received,thread,client,my_assistant)
+
     # You can add custom logic here to respond based on the text received
-    await update.message.reply_text(f'You said: {text_received}')
+    await update.message.reply_text(f'{message}')
 
 
 
