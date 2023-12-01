@@ -11,8 +11,8 @@ async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def start(update:Update, context:ContextTypes.DEFAULT_TYPE):
-    keyboard = [['Option 1', 'Option 2'],
-                ['Option 3', 'Option 4']]
+    keyboard = [['فیلم'],
+                ['سریال']]
 
     reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
 
