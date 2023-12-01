@@ -22,7 +22,7 @@ async def start(update:Update, context:ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text('Please choose:', reply_markup=reply_markup)
 
 
-def button(update:Update, context):
+async def button(update:Update, context):
     query = update.callback_query
     query.answer()  # This is necessary to prevent small loading circle on the button
 
