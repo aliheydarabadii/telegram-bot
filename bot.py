@@ -28,11 +28,11 @@ async def button(update:Update, context):
 
     # Handle the callback_data
     if query.data == '1':
-        response = f"You selected Option 1.{update.effective_user.id}"
+        response = f"You selected Option 1.{update.message.from_user.id}"
     elif query.data == '2':
-        response = f"You selected Option 2.{update.effective_user.id}"
+        response = f"You selected Option 2.{update.message.from_user.id}"
     else:
-        response = f"Unknown option. {update.effective_user.id}"
+        response = f"Unknown option. {update.message.from_user.id}"
 
     await query.edit_message_text(text=response)
 
